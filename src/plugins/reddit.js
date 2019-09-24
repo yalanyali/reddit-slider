@@ -32,4 +32,4 @@ const get = async (url) => {
   return mediaUrl || false
 }
 
-module.exports = { rule, get }
+export default { rule, get }

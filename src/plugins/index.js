@@ -1,9 +1,9 @@
-const gfycat = require('./gfycat')
-const imgur = require('./imgur')
-const reddit = require('./reddit')
-const twitch = require('./twitch')
+import gfycat from './gfycat'
+import imgur from './imgur'
+import reddit from './reddit'
+import twitch from './twitch'
 
-module.exports = {
+export default {
   gfycat,
   imgur,
   reddit,

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { getMedia } from './Kevgir'
+import kevgir from './Kevgir'
 import './App.css'
 
 const BASE_URL = 'http://www.reddit.com'
@@ -122,7 +122,7 @@ export default class App extends Component {
 
   addSlide = async (item) => {
     // Process url
-    const media = await getMedia(item.url)
+    const media = await kevgir.getMedia(item.url)
     if (!media) {
       item.url = item.data.thumbnail
       return

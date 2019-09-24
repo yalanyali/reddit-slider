@@ -1,4 +1,4 @@
-const plugins = require('./plugins')
+import plugins from './plugins'
 
 const ALLOWED_EXTENSIONS = [
   {
@@ -68,4 +68,4 @@ const getMedia = async (url) => {
   }
 }
 
-module.exports = { getMedia }
+export default { getMedia }
