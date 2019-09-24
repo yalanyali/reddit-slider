@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.1649e5c7.chunk.css",
-    "main.js": "/static/js/main.cc826978.chunk.js",
-    "main.js.map": "/static/js/main.cc826978.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.fc6c27ef.js",
-    "runtime-main.js.map": "/static/js/runtime-main.fc6c27ef.js.map",
-    "static/js/2.44d5ceb9.chunk.js": "/static/js/2.44d5ceb9.chunk.js",
-    "static/js/2.44d5ceb9.chunk.js.map": "/static/js/2.44d5ceb9.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.50550c47155efd2b667d8bf6fd4783db.js": "/precache-manifest.50550c47155efd2b667d8bf6fd4783db.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/main.1649e5c7.chunk.css.map": "/static/css/main.1649e5c7.chunk.css.map"
+    "main.css": "/reddit-slider/static/css/main.1649e5c7.chunk.css",
+    "main.js": "/reddit-slider/static/js/main.cc826978.chunk.js",
+    "main.js.map": "/reddit-slider/static/js/main.cc826978.chunk.js.map",
+    "runtime-main.js": "/reddit-slider/static/js/runtime-main.fc6c27ef.js",
+    "runtime-main.js.map": "/reddit-slider/static/js/runtime-main.fc6c27ef.js.map",
+    "static/js/2.44d5ceb9.chunk.js": "/reddit-slider/static/js/2.44d5ceb9.chunk.js",
+    "static/js/2.44d5ceb9.chunk.js.map": "/reddit-slider/static/js/2.44d5ceb9.chunk.js.map",
+    "index.html": "/reddit-slider/index.html",
+    "precache-manifest.50550c47155efd2b667d8bf6fd4783db.js": "/reddit-slider/precache-manifest.50550c47155efd2b667d8bf6fd4783db.js",
+    "service-worker.js": "/reddit-slider/service-worker.js",
+    "static/css/main.1649e5c7.chunk.css.map": "/reddit-slider/static/css/main.1649e5c7.chunk.css.map"
   }
 }
