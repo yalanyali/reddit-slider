@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import kevgir from './Kevgir'
 import './App.css'
 
-const BASE_URL = 'http://www.reddit.com'
+const BASE_URL = 'https://www.reddit.com'
 
 export default class App extends Component {
   constructor(props) {

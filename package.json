@@ -10,6 +10,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -27,5 +28,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "homepage": "https://yalanyali.github.io/reddit-slider",
+  "devDependencies": {
+    "gh-pages": "^2.1.1"
   }
 }
