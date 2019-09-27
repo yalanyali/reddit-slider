@@ -296,11 +296,22 @@ export default class App extends Component {
   }
 
   handleSwipe = (e) => {
-    if (Math.abs(e.deltaX) > 80) {
-      if (e.dir === 'Left') {
-        this.nextSlide()
-      } else {
-        this.prevSlide()
+    if (Math.abs(e.deltaX) > 80 || Math.abs(e.deltaY) > 80) {
+      switch (e.dir) {
+        case 'Left':
+          this.nextSlide()
+          break
+        case 'Right':
+          this.prevSlide()
+          break
+        case 'Up':
+          this.setMuted(false)
+          break;
+        case 'Down':
+          this.setMuted(true)
+          break
+        default:
+          break
       }
     }
   }
