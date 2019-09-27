@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { useSwipeable, Swipeable } from 'react-swipeable'
 import kevgir from './Kevgir'
 import './App.css'
 
@@ -289,6 +290,22 @@ export default class App extends Component {
     }
   }
 
+  handleVideoClick = (e) => {
+    e.preventDefault()
+    console.log('video click')
+    this.setMuted(this.state.muted)
+  }
+
+  handleSwipe = (e) => {
+    if (Math.abs(e.deltaX) > 80) {
+      if (e.dir === 'Left') {
+        this.nextSlide()
+      } else {
+        this.prevSlide()
+      }
+    }
+  }
+
   render() {
     if (this.state.activeIndex < 0) {
       return (
@@ -298,15 +315,17 @@ export default class App extends Component {
       let i = this.list[this.state.activeIndex]
       return (
         <div id='page' className='App'>
-          <div ref='title' id="titleDiv" className="navbox clouds" style={{ left: 0 }}>
-            <h2 id="navboxTitle">
-              <a href={i.data.url || i.data.link_url}>{i.title}</a>
-            </h2>
-            <h3><a id="navboxSubreddit" href={i.commentsLink}>{`/r/${i.subreddit}`}</a></h3>
-          </div>
-          <div ref='slider' className='picture-slider'>
-            {/* IMG OR VIDEO ELEMENT */}
-          </div>
+          <Swipeable onSwiped={this.handleSwipe}>
+            <div ref='title' id="titleDiv" className="navbox clouds" style={{ left: 0 }}>
+              <h2 id="navboxTitle">
+                <a href={i.data.url || i.data.link_url}>{i.title}</a>
+              </h2>
+              <h3><a id="navboxSubreddit" href={i.commentsLink}>{`/r/${i.subreddit}`}</a></h3>
+            </div>
+            <div ref='slider' className='picture-slider'>
+              {/* IMG OR VIDEO ELEMENT */}
+            </div>
+          </Swipeable>
         </div>
       )
     }
