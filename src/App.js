@@ -245,6 +245,7 @@ export default class App extends Component {
       cachedItem.preload = true
       cachedItem.style.height = '100%'
       cachedItem.style.width = '100%'
+      cachedItem.onclick = this.handleVideoClick()
     }
 
     this.preloadItem(cachedItem, item.url)
@@ -264,6 +265,18 @@ export default class App extends Component {
           e.play()
         } else {
           e.pause()
+        }
+      }
+    })
+  }
+
+  togglePlaying = () => {
+    Array.from(document.getElementsByTagName('video')).forEach(e => {
+      if (e.readyState > 2) {
+        if (e.playing) {
+          e.pause()
+        } else {
+          e.play()
         }
       }
     })
@@ -292,8 +305,9 @@ export default class App extends Component {
 
   handleVideoClick = (e) => {
     e.preventDefault()
-    console.log('video click')
-    this.setMuted(this.state.muted)
+    if (this.settings.mobileDevice) {
+      this.togglePlaying()
+    }
   }
 
   handleSwipe = (e) => {
