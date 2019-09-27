@@ -257,8 +257,7 @@ export default class App extends Component {
 
   setPlaying = (playing, reset = false) => {
     Array.from(document.getElementsByTagName('video')).forEach(e => {
-      if (e.currentTime > 0 && !e.paused && !e.ended
-        && e.readyState > 2) {
+      if (e.readyState > 2) {
         if (reset) { e.currentTime = 0 }
         if (playing) {
           e.play()
