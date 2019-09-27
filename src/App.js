@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { useSwipeable, Swipeable } from 'react-swipeable'
+import { Swipeable } from './Swipeable'
 import kevgir from './Kevgir'
 import './App.css'
 
@@ -243,9 +243,11 @@ export default class App extends Component {
       cachedItem.loop = true
       cachedItem.muted = true
       cachedItem.preload = true
+      cachedItem.autobuffer = true
+      cachedItem.playsinline = true
       cachedItem.style.height = '100%'
       cachedItem.style.width = '100%'
-      cachedItem.onclick = this.handleVideoClick()
+      // cachedItem.ontouchstart = this.handleVideoClick()
     }
 
     this.preloadItem(cachedItem, item.url)
@@ -270,13 +272,21 @@ export default class App extends Component {
     })
   }
 
-  togglePlaying = () => {
+  togglePlaying = (videoEl=null) => {
+    if (videoEl) {
+      if (videoEl.paused) {
+        videoEl.play()
+      } else {
+        videoEl.pause()
+      }
+      return
+    }
     Array.from(document.getElementsByTagName('video')).forEach(e => {
       if (e.readyState > 2) {
-        if (e.playing) {
-          e.pause()
-        } else {
+        if (e.paused) {
           e.play()
+        } else {
+          e.pause()
         }
       }
     })
@@ -303,13 +313,6 @@ export default class App extends Component {
     }
   }
 
-  handleVideoClick = (e) => {
-    e.preventDefault()
-    if (this.settings.mobileDevice) {
-      this.togglePlaying()
-    }
-  }
-
   handleSwipe = (e) => {
     if (Math.abs(e.deltaX) > 80 || Math.abs(e.deltaY) > 50) {
       switch (e.dir) {
@@ -328,6 +331,12 @@ export default class App extends Component {
         default:
           break
       }
+    }
+  }
+
+  handleTap = (e) => {
+    if (e.event.target.tagName === 'VIDEO') {
+      this.togglePlaying(e.event.target)
     }
   }
 
@@ -350,7 +359,11 @@ export default class App extends Component {
       let i = this.list[this.state.activeIndex]
       return (
         <div id='page' className='App'>
-          <Swipeable onSwiped={this.handleSwipe}>
+          <Swipeable
+            preventDefaultTouchmoveEvent
+            onSwiped={this.handleSwipe}
+            onTap={this.handleTap}
+          >
             <div ref='title' id="titleDiv" className="navbox clouds" style={{ left: 0 }}>
               <h2 id="navboxTitle">
                 <a href={i.data.url || i.data.link_url}>{i.title}</a>

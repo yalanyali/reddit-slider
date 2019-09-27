@@ -6,7 +6,6 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-scripts": "3.1.2",
-    "react-swipeable": "^5.4.0",
     "serve": "^11.2.0"
   },
   "scripts": {
