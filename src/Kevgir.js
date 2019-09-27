@@ -41,31 +41,29 @@ const checkUrl = (url) => {
   const urlExt = url.split('.').pop().split(/\?|\#/g).shift()
   if (urlExt) {
     const matchedExtension = ALLOWED_EXTENSIONS.find(item => item.ext === urlExt)
-    return matchedExtension
+    if (matchedExtension) {
+      return matchedExtension.type
+    }
   } else {
     return false
   }
 }
 
 const getMedia = async (url) => {
-  let urlExt = checkUrl(url)
-  if (urlExt) {
-    return {
-      url: url,
-      type: urlExt.type
+  let data = {
+    url: url,
+    type: checkUrl(url)
+  }
+  if (!data.type) {
+    // Plugin
+    const matchedPlugin = getMatchedPlugin(url)
+    if (matchedPlugin) {
+      const mediaUrl = await matchedPlugin.get(url)
+      data.url = mediaUrl
+      data.type = checkUrl(mediaUrl)
     }
   }
-  // Plugin
-  const matchedPlugin = getMatchedPlugin(url)
-  if (matchedPlugin) {
-    const mediaUrl = await matchedPlugin.get(url)
-    return {
-      url: mediaUrl,
-      type: 'video' // FIXME
-    }
-  } else {
-    return false
-  }
+  return data
 }
 
 export default { getMedia }

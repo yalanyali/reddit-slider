@@ -20,6 +20,8 @@ const get = async (url) => {
     .then(response => {
       if (response.data.type === 'image/gif' || response.data.type === 'video/mp4') {
         mediaUrl = `https://i.imgur.com/${mediaId}.mp4`
+      } else {
+        mediaUrl = `https://i.imgur.com/${mediaId}.jpg`
       }
     })
 

@@ -2,6 +2,8 @@ const rp = require('request-promise-native')
 
 const rule = RegExp('(?:https?:\\/\\/)?(?:www\\.)?clips\\.twitch\\.tv\\/(?:embed\\?clip=)?(\\w+)')
 
+// const CORS_ANYWHERE = 'https://cors-anywhere.herokuapp.com/'
+
 const get = async (url) => {
   let mediaUrl
   const matched = rule.exec(url)[1]

@@ -57,6 +57,10 @@ export default class App extends Component {
           return this.prevSlide()
         case keys.arrow.right:
           return this.nextSlide()
+        case keys.arrow.up:
+          return this.setVolume('high')
+        case keys.arrow.down:
+          return this.setVolume('low')
         case keys.enter:
           console.log(this.cache)
           break
@@ -92,6 +96,8 @@ export default class App extends Component {
 
     if (children.length === 0) { return }
 
+    // console.log(children.map(c => c.data.permalink))
+
     let batchPromise = children.map(async item => {
       if (!item || !item.data) { return }
       await this.addSlide({
@@ -105,6 +111,8 @@ export default class App extends Component {
     })
 
     await Promise.all(batchPromise)
+
+    // console.log(this.list)
 
     if (this.state.activeIndex === -1) {
       this.setActiveIndex(0)
@@ -122,9 +130,16 @@ export default class App extends Component {
 
   addSlide = async (item) => {
     // Process url
-    const media = await kevgir.getMedia(item.url)
-    if (!media) {
-      item.url = item.data.thumbnail
+    let media
+    try {
+      media = await kevgir.getMedia(item.url)
+    } catch (err) {
+      console.log(err)
+      return
+    }
+
+    if (!media.type) {
+      // item.url = item.data.thumbnail || item.data.link_url
       return
     } else {
       item.url = media.url
@@ -170,6 +185,7 @@ export default class App extends Component {
       type: this.list[index].type
     })
 
+    // Slider
     this.refs.slider.innerHTML = ""
     this.refs.slider.appendChild(this.cache[index])
     this.cache[index].muted = this.state.muted
@@ -200,17 +216,10 @@ export default class App extends Component {
   preloadNextItem = (index) => {
     const next = this.getNextItemIndex(index)
     // Clean cache
-    this.cleanCache()
+    this.cache = {}
     if (next < this.list.length) {
       this.createDiv(next)
     }
-  }
-
-  cleanCache = () => {
-    this.cache = {}
-    // this.cache.forEach(el => {
-    //   el.parentNode.removeChild(el)
-    // })
   }
 
   createDiv = (index) => {
@@ -247,11 +256,14 @@ export default class App extends Component {
 
   setPlaying = (playing, reset = false) => {
     Array.from(document.getElementsByTagName('video')).forEach(e => {
-      if (reset) { e.currentTime = 0 }
-      if (playing) {
-        e.play()
-      } else {
-        e.pause()
+      if (e.currentTime > 0 && !e.paused && !e.ended
+        && e.readyState > 2) {
+        if (reset) { e.currentTime = 0 }
+        if (playing) {
+          e.play()
+        } else {
+          e.pause()
+        }
       }
     })
   }
@@ -263,6 +275,20 @@ export default class App extends Component {
     this.setState({ muted })
   }
 
+  setVolume = (highOrLow) => {
+    if (highOrLow === 'high') {
+      Array.from(document.getElementsByTagName('video')).forEach(e => {
+        if (e.volume <= 0.9)
+          e.volume = e.volume + 0.1
+      })
+    } else if (highOrLow === 'low') {
+      Array.from(document.getElementsByTagName('video')).forEach(e => {
+        if (e.volume >= 0.1)
+          e.volume = e.volume - 0.1
+      })
+    }
+  }
+
   render() {
     if (this.state.activeIndex < 0) {
       return (
@@ -272,14 +298,12 @@ export default class App extends Component {
       let i = this.list[this.state.activeIndex]
       return (
         <div id='page' className='App'>
-          <div id="titleDiv" className="navbox clouds" style={{ left: 0 }}>
+          <div ref='title' id="titleDiv" className="navbox clouds" style={{ left: 0 }}>
             <h2 id="navboxTitle">
-              <a href={i.data.url}>{i.title}</a>
+              <a href={i.data.url || i.data.link_url}>{i.title}</a>
             </h2>
             <h3><a id="navboxSubreddit" href={i.commentsLink}>{`/r/${i.subreddit}`}</a></h3>
           </div>
-          {/* <div className='prevArrow fadeOnIdle' title='Arrow keys work too' id='prevButton' />
-          <div className='nextArrow fadeOnIdle' title='Arrow keys work too' id='nextButton' /> */}
           <div ref='slider' className='picture-slider'>
             {/* IMG OR VIDEO ELEMENT */}
           </div>
