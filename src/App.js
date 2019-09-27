@@ -19,7 +19,8 @@ export default class App extends Component {
     this.cache = []
     this.list = []
     this.settings = {
-      urlToFetch: this.getUrlToFetch()
+      urlToFetch: this.getUrlToFetch(),
+      mobileDevice: this.mobileDevice()
     }
   }
 
@@ -238,7 +239,7 @@ export default class App extends Component {
     } else if (item.type === 'video') {
       cachedItem = document.createElement('video')
       cachedItem.autoplay = true
-      cachedItem.controls = true
+      cachedItem.controls = !this.settings.mobileDevice
       cachedItem.loop = true
       cachedItem.muted = true
       cachedItem.preload = true
@@ -296,7 +297,7 @@ export default class App extends Component {
   }
 
   handleSwipe = (e) => {
-    if (Math.abs(e.deltaX) > 80 || Math.abs(e.deltaY) > 80) {
+    if (Math.abs(e.deltaX) > 80 || Math.abs(e.deltaY) > 50) {
       switch (e.dir) {
         case 'Left':
           this.nextSlide()
@@ -314,6 +315,16 @@ export default class App extends Component {
           break
       }
     }
+  }
+
+  mobileDevice = () => {
+    return navigator.userAgent.match(/Android/i)
+      || navigator.userAgent.match(/webOS/i)
+      || navigator.userAgent.match(/iPhone/i)
+      || navigator.userAgent.match(/iPad/i)
+      || navigator.userAgent.match(/iPod/i)
+      || navigator.userAgent.match(/BlackBerry/i)
+      || navigator.userAgent.match(/Windows Phone/i)
   }
 
   render() {
