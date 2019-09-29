@@ -11,4 +11,4 @@ router.get('/*', (req, res) => {
 app.use(express.static('public'))
 app.use('/', router)
 
-app.listen(3000)
+app.listen(process.env.PORT || 3000)
