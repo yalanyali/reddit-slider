@@ -3,6 +3,8 @@
 import kevgir from './kevgir.js'
 
 const BASE_URL = 'https://www.reddit.com'
+let cache = []
+let contentList = []
 
 let settings = {
   urlToFetch: '',
@@ -14,11 +16,9 @@ let session = {
   activeIndex: -1,
   type: 'image',
   muted: false,
-  faderTimeouts: []
+  faderTimeouts: [],
+  autoPlayInterval: null
 }
-
-let cache = []
-let contentList = []
 
 /* MAIN FUNCTIONS */
 
@@ -195,11 +195,30 @@ const nextSlide = () => {
 
 const showTitle = (timeout = 1500) => {
   session.faderTimeouts.forEach(t => clearTimeout(t))
-  const el = document.getElementById('titleContainer')
-  fadeIn(el)
+  const titleEl = document.getElementById('titleContainer')
+  const bottomEl = document.getElementById('bottomContainer')
+
+  fadeIn(titleEl)
+  fadeIn(bottomEl)
   session.faderTimeouts[0] = setTimeout(() => {
-    fadeOut(el)
+    fadeOut(titleEl)
+    fadeOut(bottomEl)
   }, timeout)
+}
+
+const toggleAutoplay = () => {
+  if (session.autoPlayInterval !== null) {
+    // Stop autoplay
+    clearInterval(session.autoPlayInterval)
+    session.autoPlayInterval = null
+    document.getElementById('autoPlay').textContent = '►'
+  } else {
+    // Start autoplay
+    session.autoPlayInterval = setInterval(() => {
+      nextSlide()
+    }, 5000)
+    document.getElementById('autoPlay').textContent = '❚❚'
+  }
 }
 
 /* UTILITY FUNCTIONS */
@@ -441,5 +460,6 @@ const init = () => {
   if (settings.isMobile) {
     addTouchEvents()
   }
+  document.getElementById('autoPlay').addEventListener('click', toggleAutoplay)
 }
 document.addEventListener('DOMContentLoaded', init)

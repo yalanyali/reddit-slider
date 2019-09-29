@@ -61,8 +61,17 @@ a:hover {
     display: inline-block;
     width: auto;
     top: 0;
-    left: 0;
-    right: 0;
+}
+
+#bottomContainer {
+    position: fixed;
+    display: inline-block;
+    width: auto;
+    bottom: 0;
+}
+
+#autoPlay {
+    font-size: 38px;
 }
 
 .navbox h2 {

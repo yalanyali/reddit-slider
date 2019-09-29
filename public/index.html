@@ -1,33 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta name="description" content="Reddit slider." />
-    <title>Reddit Slider</title>
-    <link rel="stylesheet" href="/style.css">
-    <script src="/hammer.min.js"></script>
-    <script type="module" src="/kevgir.js"></script>
-    <script type="module" src="/main.js"></script>
-</head>
-
-<body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id='page' class='App'>
-        <div id="titleContainer" class="navbox clouds" style="left: 0;">
-                    <h2 id=" navboxTitle">
-            <a id='title' href=''></a>
-            </h2>
-            <h3><a id="titleSubreddit" href=''></a></h3>
+<html lang='en'>
+	<head>
+		<meta charset='utf-8' />
+		<meta name='viewport' content='width=device-width, initial-scale=1' />
+		<meta name='theme-color' content='#000000' />
+		<meta name='description' content='Reddit slider.' />
+		<title>Reddit Slider</title>
+		<link rel='stylesheet' href='/style.css'>
+			<script src='/hammer.min.js'></script>
+			<script type='module' src='/kevgir.js'></script>
+			<script type='module' src='/main.js'></script>
+    </head>
+    <body>
+        <noscript>You need to enable JavaScript to run this app.</noscript>
+        <div id='page' class='App'>
+            <div id='titleContainer' class='navbox clouds' style='left: 0;'>
+                <h2 id='navboxTitle'>
+                    <a id='title' href=''></a>
+                </h2>
+                <h3>
+                    <a id='titleSubreddit' href=''></a>
+                </h3>
+            </div>
+            <div id='slider' class='picture-slider'></div>
+            <div id='bottomContainer' class='navbox clouds'>
+                <h2>
+                    <a id='autoPlay'>&#9658;</a>
+                </h2>
+                <!-- <h3><a id='titleSubreddit' href=''>&#9658;</a></h3> -->
+            </div>
         </div>
-        <div id='slider' class='picture-slider'>
-            <!-- IMG OR VIDEO ELEMENT -->
-        </div>
-        <!-- <video rel='preload' id='videoPreloader' class='preloader'></video>
-            <image rel='preload' id='imagePreloader' class='preloader'></image> -->
-    </div>
-</body>
-
+    </body>
 </html>
