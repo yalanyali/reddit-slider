@@ -193,7 +193,7 @@ const nextSlide = () => {
   setPlaying(true)
 }
 
-const showTitle = (timeout = 2000) => {
+const showTitle = (timeout = 1500) => {
   session.faderTimeouts.forEach(t => clearTimeout(t))
   const el = document.getElementById('titleContainer')
   fadeIn(el)
